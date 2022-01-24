@@ -4,7 +4,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public float moveSpeed = 5;
-    public float jumpForce = 50f;
+    public float jumpForce = 5f;
     private Rigidbody myRigidBody;
     private enum KeyState { Off, Down, Held, Up } 
     private KeyState ksHorizontal = KeyState.Off;
@@ -55,8 +55,7 @@ public class PlayerController : MonoBehaviour
             }
             case KeyState.Held:
                 // Holding "Move" 
-                Vector3 move = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0);
-                myRigidBody.velocity = (move * Time.deltaTime * moveSpeed);
+                myRigidBody.velocity = new Vector3(Input.GetAxis("Horizontal") * moveSpeed, myRigidBody.velocity.y, 0);
                 break;
             case KeyState.Off:
                 break;
@@ -82,7 +81,7 @@ public class PlayerController : MonoBehaviour
                 if (myRigidBody.velocity.y == 0)
                 {
                     Debug.Log("Jump");
-                    myRigidBody.AddForce(Vector3.up * jumpForce);
+                    myRigidBody.AddForce(Vector3.up * jumpForce * 100);
                 }
                 break;
             case KeyState.Off:

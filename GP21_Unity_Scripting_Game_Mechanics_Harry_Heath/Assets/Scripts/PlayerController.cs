@@ -6,6 +6,9 @@ public class PlayerController : MonoBehaviour
     public float moveSpeed = 5;
     public float jumpForce = 50f;
     private Rigidbody myRigidBody;
+    private enum KeyState { Off, Down, Held, Up } 
+    private KeyState ksHorizontal = KeyState.Off;
+    private KeyState ksSpace = KeyState.Off;
 
     private void Awake()
     {
@@ -14,19 +17,28 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        // Move left and right Inputs
         
-        // Preferably get input in Update()
-        var moveInput = Input.GetAxis("Horizontal");
+        if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.D))
+        {
+            ksHorizontal = KeyState.Down;
+        } 
+        else if (Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D))
+        {
+            ksHorizontal = KeyState.Up;
+        }
         
-        // set move Input
-        // Preferably interact with physics in FixedUpdate()
-        myRigidBody.velocity += new Vector3(moveInput * moveSpeed * myRigidBody.velocity.y, 0);
-        
-        // Get Jump Input
-        // Preferably get input in Update()
-        var jumpInput = Input.GetKeyDown(KeyCode.Space);
-        if (jumpInput & myRigidBody.velocity.y == 0)
-            myRigidBody.AddForce(Vector3.up * jumpForce);
+        // Jumping inputs
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            ksSpace = KeyState.Down;
+        }
+        else if (Input.GetKeyUp(KeyCode.Space))
+        {
+            ksSpace = KeyState.Up;
+        }
     }
 
+   
 }

@@ -40,5 +40,33 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-   
+    private void FixedUpdate()
+    {
+        // Jumping logic
+        
+        switch (ksSpace)
+        {
+            case KeyState.Down:
+            {
+                ksSpace = KeyState.Held;
+                break;
+            }
+            case KeyState.Held:
+                // Holding "Jump"
+                if (myRigidBody.velocity.y == 0)
+                {
+                    Debug.Log("Jump");
+                    myRigidBody.AddForce(Vector3.up * jumpForce);
+                }
+                break;
+            case KeyState.Off:
+                break;
+            case KeyState.Up:
+                // "Jump" released
+                ksSpace = KeyState.Off;
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+    }
 }

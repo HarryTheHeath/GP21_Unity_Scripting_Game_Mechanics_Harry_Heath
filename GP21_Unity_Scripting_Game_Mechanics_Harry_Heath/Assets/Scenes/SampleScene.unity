@@ -535,11 +535,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d67e0477eceb0ef4b8c33c43c726294d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  distance: -10
-  height: 0
-  damping: 5
-  mapX: 100
-  mapY: 100
+  distance: -8.5
+  height: -0.5
+  damping: 10
+  mapXBoundary: 300
+  mapYBoundary: 300
 --- !u!1 &1848790216
 GameObject:
   m_ObjectHideFlags: 0

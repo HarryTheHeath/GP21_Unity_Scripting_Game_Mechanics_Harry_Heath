@@ -42,6 +42,32 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        // Moving logic
+        
+        switch (ksHorizontal)
+        {
+            case KeyState.Down:
+            {
+                // "Move" key pressed
+                // set move Input & Interact with Physics
+                ksHorizontal = KeyState.Held;
+                break;
+            }
+            case KeyState.Held:
+                // Holding "Move" 
+                Vector3 move = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0);
+                myRigidBody.velocity = (move * Time.deltaTime * moveSpeed);
+                break;
+            case KeyState.Off:
+                break;
+            case KeyState.Up:
+                // "Move" released
+                ksHorizontal = KeyState.Off;
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+
         // Jumping logic
         
         switch (ksSpace)
